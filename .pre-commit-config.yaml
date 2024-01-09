@@ -1,7 +1,0 @@
-repos:
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.18.1
-    hooks:
-      - id: gitleaks
-        args: ['--verbose']  # Add the --verbose option for more detailed results
-        name: Gitleaks with verbose output
