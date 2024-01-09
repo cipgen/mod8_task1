@@ -21,39 +21,48 @@ def is_command_available(command):
     except:
         return False
 
-def install_pre_commit(os_name):
+def install_package(os_name, package_name):
     try:
         if os_name == 'darwin':
-            if is_command_available("brew"):
-                subprocess.call(["brew", "install", "pre-commit"])
-            else:
-                print("Brew не найден. Попробуйте установить 'pre-commit' вручную.")
-                return
+            subprocess.call(["brew", "install", package_name])
         elif os_name == 'windows':
-            if is_command_available("pip"):
-                subprocess.call(["pip", "install", "pre-commit"])
-            else:
-                print("Pip не найден. Попробуйте установить 'pre-commit' вручную.")
-                return
+            subprocess.call(["pip", "install", package_name])
         elif os_name == 'linux':
             if is_command_available("apt-get"):
-                subprocess.call(["sudo", "apt-get", "install", "pre-commit"])
+                subprocess.call(["sudo", "apt-get", "install", package_name])
             elif is_command_available("yum"):
-                subprocess.call(["sudo", "yum", "install", "pre-commit"])
+                subprocess.call(["sudo", "yum", "install", package_name])
             else:
-                print("Ни apt-get, ни yum не найдены. Попробуйте установить 'pre-commit' вручную.")
-                return
-        print("Pre-commit успешно установлен для {}.".format(os_name))
+                print("Пакетный менеджер для {} не найден.".format(os_name))
+                return False
+        print("{} успешно установлен для {}.".format(package_name, os_name))
+        return True
     except:
-        print("Ошибка установки pre-commit для {}.".format(os_name))
+        print("Ошибка установки {} для {}.".format(package_name, os_name))
+        return False
+
+def setup_pre_commit_config():
+    config_content = """repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.16.1
+    hooks:
+      - id: gitleaks"""
+    with open('.pre-commit-config.yaml', 'w') as config_file:
+        config_file.write(config_content)
+
+def install_pre_commit_tools(os_name):
+    if install_package(os_name, "pre-commit"):
+        setup_pre_commit_config()
+        subprocess.call(["pre-commit", "install"])
+        subprocess.call(["pre-commit", "autoupdate"])
 
 def main():
     os_name = get_os()
     print("Операционная система: {}".format(os_name))
     if os_name != 'unknown':
-        install_pre_commit(os_name)
+        install_pre_commit_tools(os_name)
     else:
-        print("Неизвестная ОС, установка pre-commit невозможна.")
+        print("Неизвестная ОС, установка инструментов невозможна.")
 
 if __name__ == "__main__":
     main()
