@@ -43,4 +43,4 @@ git config --local gitleaks.enable False
 
 **Example of a check:**
 
-![Example](./install_pre_commit.py)
+![Example](./img/example.png)
