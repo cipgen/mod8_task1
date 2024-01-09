@@ -33,12 +33,12 @@ def install_package(os_name, package_name):
             elif is_command_available("yum"):
                 subprocess.call(["sudo", "yum", "install", package_name])
             else:
-                print("Пакетный менеджер для {} не найден.".format(os_name))
+                print("Package manager for {} not found.".format(os_name))
                 return False
-        print("{} успешно установлен для {}.".format(package_name, os_name))
+        print("{} successfully installed for {}.".format(package_name, os_name))
         return True
     except:
-        print("Ошибка установки {} для {}.".format(package_name, os_name))
+        print("Error installing {} for {}.".format(package_name, os_name))
         return False
 
 def setup_pre_commit_config():
@@ -58,11 +58,11 @@ def install_pre_commit_tools(os_name):
 
 def main():
     os_name = get_os()
-    print("Операционная система: {}".format(os_name))
+    print("Operating system: {}".format(os_name))
     if os_name != 'unknown':
         install_pre_commit_tools(os_name)
     else:
-        print("Неизвестная ОС, установка инструментов невозможна.")
+        print("Unknown OS, unable to install tools.")
 
 if __name__ == "__main__":
     main()
