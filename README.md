@@ -11,29 +11,21 @@ This script performs the following actions:
 - Checks if the gitleaks tool is enabled in Git settings and enables it if necessary.
 - Install Python from the official website if it is not already installed: https://www.python.org/downloads/
 
-**Download the script to your project directory:**
+
+**!! HowDon't forget that you must be in the project's git repository before executing the script.**
+
+**Run executable script for MacOS/Unix**
 
 ```console
-curl -o install_pre_commit.py https://raw.githubusercontent.com/cipgen/mod8_task1/main/install_pre_commit.py
+curl -o install_pre_commit.py https://raw.githubusercontent.com/cipgen/mod8_task1/main/install_pre_commit.py && chmod +x install_pre_commit.py && git config --local gitleaks.enable true && python install_pre_commit.py
 ```
 
-**Give execute permissions on macOS/Unix:**
+**Run executable script for Windows**
 
 ```console
-chmod +x install_pre_commit.py
+curl -o install_pre_commit.py https://raw.githubusercontent.com/cipgen/mod8_task1/main/install_pre_commit.py && git config --local gitleaks.enable true && python install_pre_commit.py
 ```
-**Set up the local Git configuration, including the "gitleaks.enable" option, and set its value to "true":**
-
-```console
-git config --local gitleaks.enable true
-```
-**Run the script:**
-
-```console
-python install_pre_commit.py
-```
-
-*Now, before each commit, gitleaks checks for sensitive data and provides information in the console.*
+_____
 
 **If you want to disable gitleaks checks, use the following command:**
 
