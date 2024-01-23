@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import platform
 import subprocess
 import sys
@@ -29,7 +28,10 @@ def install_package(os_name, package_name):
         elif os_name == 'windows':
             subprocess.call(["pip", "install", package_name])
         elif os_name == 'linux':
-            if is_command_available("apt-get"):
+            # Используйте pip для установки pre-commit на Linux
+            if package_name == "pre-commit":
+                subprocess.call(["pip", "install", package_name])
+            elif is_command_available("apt-get"):
                 subprocess.call(["sudo", "apt-get", "install", package_name])
             elif is_command_available("yum"):
                 subprocess.call(["sudo", "yum", "install", package_name])
