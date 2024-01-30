@@ -36,3 +36,5 @@ git config --local gitleaks.enable False
 **Example of a check:**
 
 ![Example](./img/Example.png)
+
+
